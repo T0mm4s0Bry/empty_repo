@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #f8f9fa;
+  }
+  
+  .card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    transition: 0.3s;
+  }
+  
+  h1, h2 {
+    font-family: 'Arial', sans-serif;
+  }
+  

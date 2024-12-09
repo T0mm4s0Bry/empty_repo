@@ -1,9 +1,16 @@
-<div>
-    <h1>Tipi di Pokemon</h1>
-    <ul>
-      <li *ngFor="let type of types">
-        <a [routerLink]="['/type', type.name]">{{ type.name }}</a>
-      </li>
-    </ul>
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Tipologie di Pokémon</h1>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let type of types">
+        <div class="card text-center shadow-sm mb-4">
+          <div class="card-body">
+            <h5 class="card-title text-capitalize">{{ type.name }}</h5>
+            <a [routerLink]="['/type', type.name]" class="btn btn-primary">
+              Esplora
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   

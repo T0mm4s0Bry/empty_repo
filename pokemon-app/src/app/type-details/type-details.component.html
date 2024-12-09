@@ -1,14 +1,16 @@
-<div *ngIf="typeDetails; else loading">
-    <h1>{{ typeDetails.name | titlecase }}</h1>
-    <ul>
-      <li *ngFor="let pokemon of typeDetails.pokemon">
-        <a [routerLink]="['/pokemon', pokemon.pokemon.name]">
-          {{ pokemon.pokemon.name | titlecase }}
-        </a>
-      </li>
-    </ul>
+<div class="container mt-4">
+    <h1 class="text-center mb-4">{{ typeDetails?.name | titlecase }}</h1>
+    <div class="row">
+      <div class="col-md-3" *ngFor="let pokemon of typeDetails.pokemon">
+        <div class="card text-center shadow-sm mb-4">
+          <div class="card-body">
+            <h5 class="card-title text-capitalize">{{ pokemon.pokemon.name }}</h5>
+            <a [routerLink]="['/pokemon', pokemon.pokemon.name]" class="btn btn-secondary">
+              Vedi Dettagli
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <ng-template #loading>
-    <p>Caricamento in corso...</p>
-  </ng-template>
   
