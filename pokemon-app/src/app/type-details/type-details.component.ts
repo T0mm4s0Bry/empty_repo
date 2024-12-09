@@ -18,12 +18,14 @@ export class TypeDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      this.typeName = params.get('type') || '';
-      if (this.typeName) {
-        this.pokemonService.getTypeDetails(this.typeName).subscribe(data => {
+      const typeName = params.get('type') || '';
+      this.pokemonService.getTypeDetails(typeName).subscribe({
+        next: (data) => {
+          console.log('Type Details:', data); // Debug
           this.typeDetails = data;
-        });
-      }
+        },
+      });
     });
   }
+  
 }

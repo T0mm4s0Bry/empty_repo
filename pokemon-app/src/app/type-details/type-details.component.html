@@ -1,9 +1,14 @@
-<div *ngIf="typeDetails">
-    <h1>{{ typeName | titlecase }} - Dettagli</h1>
+<div *ngIf="typeDetails; else loading">
+    <h1>{{ typeDetails.name | titlecase }}</h1>
     <ul>
       <li *ngFor="let pokemon of typeDetails.pokemon">
-        {{ pokemon.pokemon.name }}
+        <a [routerLink]="['/pokemon', pokemon.pokemon.name]">
+          {{ pokemon.pokemon.name | titlecase }}
+        </a>
       </li>
     </ul>
   </div>
+  <ng-template #loading>
+    <p>Caricamento in corso...</p>
+  </ng-template>
   
