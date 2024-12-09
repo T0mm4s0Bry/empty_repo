@@ -1,1 +1,9 @@
-<p>home works!</p>
+<div>
+    <h1>Tipi di Pokemon</h1>
+    <ul>
+      <li *ngFor="let type of types">
+        <a [routerLink]="['/type', type.name]">{{ type.name }}</a>
+      </li>
+    </ul>
+  </div>
+  

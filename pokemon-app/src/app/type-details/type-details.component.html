@@ -1,1 +1,9 @@
-<p>type-details works!</p>
+<div *ngIf="typeDetails">
+    <h1>{{ typeName | titlecase }} - Dettagli</h1>
+    <ul>
+      <li *ngFor="let pokemon of typeDetails.pokemon">
+        {{ pokemon.pokemon.name }}
+      </li>
+    </ul>
+  </div>
+  
