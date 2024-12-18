@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PokemonService } from '../pokemon.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-type-details',
@@ -9,23 +9,27 @@ import { PokemonService } from '../pokemon.service';
 })
 export class TypeDetailsComponent implements OnInit {
   typeDetails: any;
-  typeName: string = '';
 
   constructor(
     private route: ActivatedRoute,
-    private pokemonService: PokemonService
-  ) { }
+    private http: HttpClient
+  ) {}
 
   ngOnInit(): void {
+    this.loadTypeDetails();
+  }
+
+  loadTypeDetails(): void {
     this.route.paramMap.subscribe(params => {
       const typeName = params.get('type') || '';
-      this.pokemonService.getTypeDetails(typeName).subscribe({
+      this.http.get<any>(`https://pokeapi.co/api/v2/type/${typeName}`).subscribe({
         next: (data) => {
-          console.log('Type Details:', data); // Debug
           this.typeDetails = data;
         },
+        error: (err) => {
+          console.error('Errore durante il recupero dei dettagli del tipo:', err);
+        }
       });
     });
   }
-  
 }

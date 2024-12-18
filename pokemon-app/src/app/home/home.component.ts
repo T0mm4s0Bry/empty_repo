@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PokemonService } from '../pokemon.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -9,11 +9,20 @@ import { PokemonService } from '../pokemon.service';
 export class HomeComponent implements OnInit {
   types: any[] = [];
 
-  constructor(private pokemonService: PokemonService) { }
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.pokemonService.getTypes().subscribe(data => {
-      this.types = data.results;
+    this.loadPokemonTypes();
+  }
+
+  loadPokemonTypes(): void {
+    this.http.get<any>('https://pokeapi.co/api/v2/type').subscribe({
+      next: (data) => {
+        this.types = data.results;
+      },
+      error: (err) => {
+        console.error('Errore durante il recupero dei tipi:', err);
+      }
     });
   }
 }

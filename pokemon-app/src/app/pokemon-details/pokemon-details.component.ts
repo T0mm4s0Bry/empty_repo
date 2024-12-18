@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PokemonService } from '../pokemon.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-pokemon-details',
@@ -8,32 +8,28 @@ import { PokemonService } from '../pokemon.service';
   styleUrls: ['./pokemon-details.component.css']
 })
 export class PokemonDetailsComponent implements OnInit {
-  pokemonId: string = '';
   pokemon: any;
 
   constructor(
     private route: ActivatedRoute,
-    private pokemonService: PokemonService
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
-    // Recupera l'ID dal parametro della rotta
-    this.route.paramMap.subscribe(params => {
-      this.pokemonId = params.get('id') || '';
-      console.log('Pokemon ID:', this.pokemonId); // Debug
-      this.loadPokemonDetails();
-    });
+    this.loadPokemonDetails();
   }
 
   loadPokemonDetails(): void {
-    this.pokemonService.getPokemonById(this.pokemonId).subscribe({
-      next: (data) => {
-        console.log('Pokemon Details:', data);
-        this.pokemon = data;
-      },
-      error: (err) => {
-        console.error('Error fetching Pokemon details:', err);
-      }
+    this.route.paramMap.subscribe(params => {
+      const pokemonId = params.get('id') || '';
+      this.http.get<any>(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`).subscribe({
+        next: (data) => {
+          this.pokemon = data;
+        },
+        error: (err) => {
+          console.error('Errore durante il recupero dei dettagli del Pokémon:', err);
+        }
+      });
     });
   }
 }
